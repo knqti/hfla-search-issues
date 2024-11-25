@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 
 scratch*
-token.py
+token_file.py

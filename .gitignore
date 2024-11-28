@@ -163,3 +163,4 @@ cython_debug/
 
 scratch*
 token_file.py
+*.csv

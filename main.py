@@ -17,7 +17,7 @@ def get_repos(csv_file:str):
         return list_of_repos
 
 def search_issues(repository:str, search_term:str):
-    query = f'repo:hackforla/{repository} is:issue {search_term}'
+    query = f'repo:{repository} is:issue {search_term}'
     
     results = api.search.issues_and_pull_requests(
         q=query,
@@ -34,47 +34,43 @@ def search_issues(repository:str, search_term:str):
 
 def parse_issues(api_response:dict):
     issues_count = api_response['total_count']
-    
-    list_of_titles = []
-    list_of_urls = []
-    list_of_numbers = []
+    parsed_data = [('issue_title', 'issue_url', 'issue_number')]
 
     for issue in api_response['items']:
         # Remove parenthesis, aposterphe, and comma
         issue_title = issue['title'].strip("()',")
-        list_of_titles.append(issue_title)
-        
         issue_url = issue['html_url']
-        list_of_urls.append(issue_url)
-
         issue_number = issue['number']
-        list_of_numbers.append(issue_number)
+        parsed_data.append((issue_title, issue_url, issue_number))
         
-    return issues_count, list_of_titles, list_of_urls, list_of_numbers
+    return issues_count, parsed_data
 
 
 if __name__ == '__main__':
     api = GhApi(token=GITHUB_TOKEN)
     
     repo_urls = './repo_urls.csv'
-    repos = get_repos(repo_urls)
+    repo_list = get_repos(repo_urls)
 
     keywords = input('Keywords to search for: ').lower().strip()
+    keywords = '"' + keywords + '"'
 
-    issues_dict = search_issues(repo, keywords)
-    issues_found, titles, urls, numbers = parse_issues(issues_dict)
+    for repo in repo_list:
+        try:
+            response_dict = search_issues(repo, keywords)
+            total_issues, data_list = parse_issues(response_dict)
 
-    if issues_found == 0:
-        print(f'No issues found in repo {repo} with keywords "{keywords}".')
-    else:
-        data = [['Repo', 'Title', 'URL', 'Issue Number']]
+            if total_issues == 0:
+                print(f'No issues in repo "{repo}" with keywords "{keywords}".')
+            else:
+                new_repo_str = str(repo.replace('/', '-'))
+                new_keywords_str = str(keywords.strip('"'))
+                output_file = f'issues_{new_repo_str}_{new_keywords_str}.csv'
 
-        for title, url, number in zip(titles, urls, numbers):
-            data.append([repo, title, url, number])
-        
-        with open(f'issues_{repo}_{keywords}.csv', 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows(data) 
+                with open(output_file, 'w', newline='') as f:
+                    writer = csv.writer(f)
+                    writer.writerows(data_list)
+                    print(f'Success! {output_file}')
 
-
-    
+        except Exception as e:
+            print(f'Error: {e}')

@@ -3,6 +3,19 @@ import csv
 from ghapi.all import GhApi
 from token_file import GITHUB_TOKEN
 
+def get_repos(csv_file:str):
+    with open(csv_file, 'r', newline='') as file:
+        reader = csv.reader(file)
+        list_of_repos = []
+
+        for repo_url in reader:
+            # Get repo name at the end of URL
+            repo_name = repo_url[0]
+            repo_name = repo_name.split(".com/")[1]
+            list_of_repos.append(repo_name)
+        
+        return list_of_repos
+
 def search_issues(repository:str, search_term:str):
     query = f'repo:hackforla/{repository} is:issue {search_term}'
     
@@ -16,6 +29,7 @@ def search_issues(repository:str, search_term:str):
 
     # Use `ast` to parse results into Python
     results_dict = ast.literal_eval(str(results))
+    
     return results_dict
 
 def parse_issues(api_response:dict):
@@ -26,6 +40,7 @@ def parse_issues(api_response:dict):
     list_of_numbers = []
 
     for issue in api_response['items']:
+        # Remove parenthesis, aposterphe, and comma
         issue_title = issue['title'].strip("()',")
         list_of_titles.append(issue_title)
         
@@ -40,8 +55,10 @@ def parse_issues(api_response:dict):
 
 if __name__ == '__main__':
     api = GhApi(token=GITHUB_TOKEN)
+    
+    repo_urls = './repo_urls.csv'
+    repos = get_repos(repo_urls)
 
-    repo = input('Repo to search in: ').lower().strip()
     keywords = input('Keywords to search for: ').lower().strip()
 
     issues_dict = search_issues(repo, keywords)
@@ -58,3 +75,6 @@ if __name__ == '__main__':
         with open(f'issues_{repo}_{keywords}.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerows(data) 
+
+
+    

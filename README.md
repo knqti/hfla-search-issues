@@ -1,5 +1,83 @@
-Automate the "Projects to Check" section of HfLA's issues.
+# Overview
 
-- [HfLA projects](https://github.com/hackforla/product-management/issues/321)
-- [GitHub API](https://docs.github.com/en/rest?apiVersion=2022-11-28)
-- [ghapi](https://ghapi.fast.ai/)
+[Hack for LA Guides](https://github.com/hackforla/guides) members gather examples from [GitHub issues](https://github.com/hackforla/guides/wiki/Gathering-Examples-with-Github). 
+
+`hfla-search-issues` is a command-line tool that searches for issues within GitHub repositories. It uses the Python client, [`ghapi`](https://ghapi.fast.ai/), to access [GitHub's REST API](https://docs.github.com/en/rest?apiVersion=2022-11-28). 
+
+The script does the following:
+
+1. Asks for keywords to search for
+2. Loops through a CSV file of repositories
+3. Calls the API for issues within each repository
+4. Outputs two CSV file when finished: 
+   a. Repositories with issues found
+   b. Repositories with no issues found
+
+# How to Use
+
+Follow the steps below to use `hfla-search-issues`.
+
+## Prerequisites
+
+You will need Python 3.x.
+
+## Download
+
+To download a copy:
+
+1. At the top of this repository, click the Code button.
+2. Click Download ZIP.
+3. Extract the zipped folder.
+
+> Note: If you use the Download ZIP option, the folder will have the branch name added to the end.
+
+To clone this repository, run the command in your terminal:
+
+```bash
+git clone https://github.com/knqti/hfla-search-issues.git
+```
+
+> Note: Example commands are in bash.
+
+## Change directory 
+
+Navigate into `hfla-search-issues`'s root directory:
+
+```bash
+cd /PATH/TO/hfla-search-issues
+```
+
+## Install
+
+Install dependencies from requirements.txt:
+
+```bash
+pip install -r ./requirements.txt
+```
+
+## Personal access token (optional)
+
+A GitHub personal access token is optional, but recommended. Some repositories may require user authentication.
+
+To create a token, see [Managing your personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#about-personal-access-tokens).
+
+To use your token, create a token_file.py file:
+
+```bash
+echo "GITHUB_TOKEN = 'YOUR_TOKEN_GOES_HERE'" > token_file.py
+```
+
+## Run
+
+To run `hfla-search-issues`:
+
+```bash
+python3 main.py
+```
+
+`hfla-search-issues` searches through the repository links in repo_urls.csv. Update the links as needed.
+
+# API References
+
+- `hfla-search-issues` calls the method [`search.issues_and_pull_requests`](https://ghapi.fast.ai/fullapi.html)
+- `search.issues_and_pull_requests` calls the API endpoint [Search issues and pull requests](https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-issues-and-pull-requests)

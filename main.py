@@ -1,8 +1,8 @@
 import ast
 import csv
+import os
 from datetime import datetime
 from ghapi.all import GhApi
-from token_file import GITHUB_TOKEN
 
 def get_repos(csv_file:str):
     with open(csv_file, 'r', newline='') as file:
@@ -54,7 +54,11 @@ def export_to_csv(file_name:str, list_name:str):
 if __name__ == '__main__':
     now = datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
     
-    api = GhApi(token=GITHUB_TOKEN)
+    if os.path.exists('token_file.py'):
+        from token_file import GITHUB_TOKEN
+        api = GhApi(token=GITHUB_TOKEN)
+    else:
+        api = GhApi()
     
     repo_urls = './repo_urls.csv'
     repo_list = get_repos(repo_urls)

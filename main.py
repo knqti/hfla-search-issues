@@ -15,7 +15,7 @@ def get_repos(csv_file:str):
             repository_name = repository_url.split('.com/')[1]
             list_of_repos.append(repository_name)
      
-        return list_of_repos
+    return list_of_repos
 
 def search_issues(repository:str, search_term:str):
     query = f'repo:{repository} is:issue {search_term}'

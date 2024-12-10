@@ -2,7 +2,14 @@ import ast
 import csv
 import os
 from datetime import datetime
+from dotenv import load_dotenv
 from ghapi.all import GhApi
+
+def get_credentials():
+    load_dotenv()
+    credential = os.getenv('GITHUB_TOKEN')
+    
+    return credential
 
 def get_repos(csv_file:str):
     with open(csv_file, 'r', newline='') as file:
@@ -54,9 +61,9 @@ def export_to_csv(file_name:str, list_name:str):
 if __name__ == '__main__':
     now = datetime.now().strftime('%Y-%m-%dT%H-%M-%S')
     
-    if os.path.exists('token_file.py'):
-        from token_file import GITHUB_TOKEN
-        api = GhApi(token=GITHUB_TOKEN)
+    if os.path.exists('.env'):
+        token = get_credentials()
+        api = GhApi(token)
     else:
         api = GhApi()
     

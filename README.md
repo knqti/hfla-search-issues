@@ -1,19 +1,19 @@
 # Overview
 
-[Hack for LA Guides](https://github.com/hackforla/guides) members gather examples from [GitHub issues](https://github.com/hackforla/guides/wiki/Gathering-Examples-with-Github) as part of the initial guide-making process. 
-
-`hfla-search-issues` is a Python script that searches for issues within GitHub repositories. It uses the Python client, [`ghapi`](https://ghapi.fast.ai/), to access [GitHub's REST API](https://docs.github.com/en/rest?apiVersion=2022-11-28). 
+[Hack for LA Guides](https://github.com/hackforla/guides) members gather examples as part of the initial guide-making process. `hfla-search-issues` is a Python script that automates the search for GitHub issues. It uses the Python client, [`ghapi`](https://ghapi.fast.ai/), to access [GitHub's REST API](https://docs.github.com/en/rest?apiVersion=2022-11-28). 
 
 The script does the following:
 
 1. Asks for keywords to search for
 2. Loops through a CSV file of repositories
 3. Calls the API for issues within each repository
-4. Outputs two CSV file when finished: 
-   a. Repositories with issues found
-   b. Repositories with no issues found
+4. Outputs two CSV files when finished: 
 
-# How to Use
+   i. Repositories with issues found
+
+   ii. Repositories with no issues found
+
+# Usage
 
 Follow the steps below to use `hfla-search-issues`.
 
@@ -26,13 +26,13 @@ Follow the steps below to use `hfla-search-issues`.
 
 ## Download
 
-To download a copy:
+Download or clone this repository into your local computer.
+
+To download:
 
 1. At the top of this repository, click the Code button
 2. Click Download ZIP
 3. Extract the zipped folder
-
-> Note: If you use the Download ZIP option, the folder will have the branch name added to the end.
 
 To clone this repository, run the following command in your terminal:
 
@@ -42,11 +42,13 @@ git clone https://github.com/knqti/hfla-search-issues.git
 
 ## Change directory 
 
-Navigate into `hfla-search-issues`' root directory:
+Navigate into the `hfla-search-issues` root directory:
 
 ```bash
 cd /PATH/TO/hfla-search-issues
 ```
+
+> Note: If you downloaded a ZIP folder, the extracted folder will include the branch name. Use the full name in your `cd` command (i.e., `hfla-search-issues-main`).
 
 ## Dependencies
 

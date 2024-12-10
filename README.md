@@ -22,6 +22,8 @@ Follow the steps below to use `hfla-search-issues`.
 - [Python 3.x](https://www.python.org/downloads/)
 - Access to your computer's terminal
 
+> Note: The terminal commands below are in bash.
+
 ## Download
 
 To download a copy:
@@ -32,7 +34,7 @@ To download a copy:
 
 > Note: If you use the Download ZIP option, the folder will have the branch name added to the end.
 
-To clone this repository, run the bash command in your terminal:
+To clone this repository, run the following command in your terminal:
 
 ```bash
 git clone https://github.com/knqti/hfla-search-issues.git
@@ -60,10 +62,10 @@ A GitHub personal access token is optional, but recommended. Using a token incre
 
 To create a token, see [Managing your personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#about-personal-access-tokens).
 
-To use your token, create a *token_file.py* file:
+To use your token, create a *.env* file:
 
 ```bash
-echo "GITHUB_TOKEN = 'YOUR_TOKEN_GOES_HERE'" > token_file.py
+echo "GITHUB_TOKEN = 'YOUR_TOKEN_GOES_HERE'" > .env
 ```
 
 ## Run

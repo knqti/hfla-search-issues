@@ -13,9 +13,9 @@ The script does the following:
 
    ii. Repositories with no issues found
 
-# Usage
+# Installation
 
-Follow the steps below to use `hfla-search-issues`.
+Follow the steps below to install `hfla-search-issues`.
 
 ## Prerequisites
 
@@ -70,7 +70,7 @@ To use your token, create a *.env* file:
 echo "GITHUB_TOKEN = 'YOUR_TOKEN_GOES_HERE'" > .env
 ```
 
-## Run
+# Usage
 
 To run `hfla-search-issues`:
 
@@ -78,7 +78,7 @@ To run `hfla-search-issues`:
 python3 main.py
 ```
 
-You are prompted with `Keywords to search for:`. Type your keywords and press enter. 
+You are prompted with `Keywords to search for`. Type your keywords and press enter. 
 
 `hfla-search-issues` searches through the repository links in *repo_urls.csv*. Update the links as needed.
 
